@@ -191,6 +191,18 @@ def main():
             for idx in ansIdx:
                 plt.gca().get_yticklabels()[idx].set_color('blue')
             plt.xticks(np.arange(len(selected_pred)), tuple(selected_pred), rotation=45)
+            
+            #add
+            context_idx = np.argmax(attn.data.cpu().numpy(), axis=0)
+            for i in range(len(selected_pred)):
+                #set color to red if the max in the attention column is same word as itself
+                #if y[context_idx[i]] == x[i]
+                if batch.dataset.examples[counter].src[context_idx[i]] == tuple(selected_pred)[i]:
+                    plt.gca().get_xticklabels()[i].set_color('red')
+
+            #end
+
+            
             plt.colorbar(im)
             # set_trace()
             # plt.show()
