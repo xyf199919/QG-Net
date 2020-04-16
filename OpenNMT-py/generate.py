@@ -25,7 +25,7 @@ from drqa.reader import Predictor
 from drqa import tokenizers
 
 import matplotlib
-matplotlib.use('tkagg')
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import numpy as np
@@ -177,7 +177,7 @@ def main():
             # set_trace()
             # plt.draw()
             # plt.show()
-            ani.save("saliency_animations_LSTM_attn/saliency_sent_" +
+            ani.save("/home/emily/QG-Net/saliency_animations_LSTM_attn/saliency_sent_" +
                      str(counter+1) + "(" + opt.src.split('/')[1] + ").mp4")
 
         # visualization of attention matrix
@@ -206,7 +206,7 @@ def main():
             plt.colorbar(im)
             # set_trace()
             # plt.show()
-            plt.savefig('attention_visualizations_LSTM_attn/attn_vis_' + str(counter+1) +
+            plt.savefig('/home/emily/QG-Net/attention_visualizations_LSTM_attn/attn_vis_' + str(counter+1) +
                         "(" + opt.src.split('/')[1] + ").png")
 
         ##########################
