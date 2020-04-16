@@ -177,8 +177,6 @@ def main():
             # set_trace()
             # plt.draw()
             # plt.show()
-            #save all_saliency np array to csv where each column is one timestep
-            np.savetxt('/home/emily/QG-Net/saliency_data/saliency_data_' + str(counter+1) + '.csv', all_saliency.data.cpu().numpy(), delimiter=',')
             
             ani.save("/home/emily/QG-Net/saliency_animations_LSTM_attn/saliency_sent_" +
                      str(counter+1) + "(" + opt.src.split('/')[1] + ").mp4")
@@ -205,6 +203,10 @@ def main():
 
             #save each attention array in diff csv
             np.savetxt('/home/emily/QG-Net/attn_data/attn_data_' + str(counter+1) + '.csv', attn.data.cpu().numpy(), delimiter=',')
+            #save all_saliency np array to csv where each column is one timestep
+            np.savetxt('/home/emily/QG-Net/saliency_data/saliency_data_' + str(counter+1) + '.csv', batch_data['saliency'].data.cpu().numpy(), delimiter=',')
+            
+            
             
             plt.colorbar(im)
             # set_trace()
