@@ -177,6 +177,9 @@ def main():
             # set_trace()
             # plt.draw()
             # plt.show()
+            #save all_saliency np array to csv where each column is one timestep
+            np.savetxt('/home/emily/QG-Net/saliency_data/saliency_data_' + str(counter+1) + '.csv', all_saliency.data.cpu().numpy(), delimiter=',')
+            
             ani.save("/home/emily/QG-Net/saliency_animations_LSTM_attn/saliency_sent_" +
                      str(counter+1) + "(" + opt.src.split('/')[1] + ").mp4")
 
@@ -192,7 +195,7 @@ def main():
                 plt.gca().get_yticklabels()[idx].set_color('blue')
             plt.xticks(np.arange(len(selected_pred)), tuple(selected_pred), rotation=45)
             
-            #add
+            #add red highlight for words copied from context
             context_idx = np.argmax(attn.data.cpu().numpy(), axis=0)
             for i in range(len(selected_pred)):
                 #set color to red if the max in the attention column is same word as itself
@@ -200,8 +203,8 @@ def main():
                 if batch.dataset.examples[counter].src[context_idx[i]] == tuple(selected_pred)[i]:
                     plt.gca().get_xticklabels()[i].set_color('red')
 
-            #end
-
+            #save each attention array in diff csv
+            np.savetxt('/home/emily/QG-Net/attn_data/attn_data_' + str(counter+1) + '.csv', attn.data.cpu().numpy(), delimiter=',')
             
             plt.colorbar(im)
             # set_trace()
