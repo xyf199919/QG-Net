@@ -203,8 +203,10 @@ def main():
 
             #save each attention array in diff csv
             np.savetxt('/home/emily/QG-Net/attn_data/attn_data_' + str(counter+1) + '.csv', attn.data.cpu().numpy(), delimiter=',')
-            #save all_saliency np array to csv where each column is one timestep
-            np.savetxt('/home/emily/QG-Net/saliency_data/saliency_data_' + str(counter+1) + '.csv', batch_data['saliency'].data.cpu().numpy(), delimiter=',')
+            #save all_saliency np array to csv (stacked) where each column is one timestep
+            all_saliency = batch_data['saliency']
+            for sal in range(int(all_saliency.shape[1])):
+                np.savetxt('/home/emily/QG-Net/saliency_data/saliency_data_' + str(counter+1) + '.csv', all_saliency[:,sal].data.cpu().numpy(), delimiter=',')
             
             
             
