@@ -355,6 +355,7 @@ def main():
     if opt.selection_criterion == "KRS":
         with codecs.open(opt.output+'.prob.txt', 'w', 'utf-8') as f:
             f.write('\n'.join(katies_n_best))
+            f.write('\n')
         f.close()
     # write best questions judged by QA score + raw probability
     # write all questions (n_best * )
