@@ -122,7 +122,9 @@ def main():
     QA_choice_indices = []
 
     num_diff = 0
-
+    
+    katies_n_best = []
+   
     counter = -1
     for batch in tqdm(test_data):
         counter += 1
@@ -231,6 +233,7 @@ def main():
             ''' ranking with raw probability '''
             n_best_preds_raw_prob = [" ".join(pred).replace('\n', '')
                             for pred in trans.pred_sents[:opt.n_best] if '\n' not in pred]
+            katies_n_best.extend(n_best_preds_raw_prob)
             # n_best_raw_prob = [-trans.pred_scores[i] for i in range(opt.n_best)]
             n_best_raw_prob = [np.exp(trans.pred_scores[i]) for i in range(opt.n_best)] # raw prob, higher is better
             assert(len(n_best_preds_raw_prob) == opt.n_best)
@@ -348,7 +351,11 @@ def main():
         with codecs.open(opt.output+'.prob.txt', 'w', 'utf-8') as f:
             f.write('\n'.join(best_question_raw_prob))
         f.close()
-
+        
+    if opt.selection_criterion == "KRS":
+        with codecs.open(opt.output+'.prob.txt', 'w', 'utf-8') as f:
+            f.write('\n'.join(katies_n_best))
+        f.close()
     # write best questions judged by QA score + raw probability
     # write all questions (n_best * )
     if opt.selection_criterion == 'NLL-QA':
